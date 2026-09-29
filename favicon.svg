@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SafeSteps">
+  <!--
+    The favicon is the lit window at its smallest honest size.
+
+    A favicon has to survive 16 by 16 pixels, so the home page's five by three
+    facade is reduced to three by three. Nine panes still read as a building,
+    and one lit pane is still the whole idea. Every other candidate was worse at
+    that size: a single window has no idea in it, and a real five by three grid
+    collapses into noise.
+
+    Colour is two locked tokens and nothing else. docs/design.md section 4 calls
+    amber the human, and the human is the entire product, so the lit pane is the
+    DDSR. The unlit panes are the surface token with a faint amber stroke, which
+    is what makes the grid read as windows in a dark building rather than as a
+    pattern.
+
+    The tab bar can be light or dark and the site cannot know which, so the
+    building is a dark rounded square with a faint amber edge. On a light tab it
+    is a dark object; on a dark tab the edge keeps its shape. Either way the
+    amber pane is the thing the eye lands on, and amber is the only mark that
+    survives both.
+  -->
+  <rect width="32" height="32" rx="7" fill="#14171C"/>
+  <rect x=".75" y=".75" width="30.5" height="30.5" rx="6.5" fill="none" stroke="#E9B872" stroke-opacity=".5" stroke-width="1.75"/>
+
+  <g fill="#1D2128" stroke="#E9B872" stroke-opacity=".4" stroke-width="1">
+    <rect x="5" y="5" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="13.16" y="5" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="21.32" y="5" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="5" y="13.16" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="5" y="21.32" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="13.16" y="21.32" width="5.67" height="5.67" rx="1.2"/>
+    <rect x="21.32" y="21.32" width="5.67" height="5.67" rx="1.2"/>
+  </g>
+
+  <!-- the lit window, off centre on purpose, echoing the home page motif -->
+  <rect x="21.32" y="13.16" width="5.67" height="5.67" rx="1.2" fill="#E9B872"/>
+</svg>
