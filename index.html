@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SafeSteps: আপনার কলেজেই একজন বিশ্বস্ত মানুষ</title>
+<meta name="description" content="SafeSteps: বাংলাদেশের ডিগ্রি মহাবিদ্যালয়ের শিক্ষার্থীদের জন্য প্রমাণ সংরক্ষণের নির্দেশিকা, ইভিডেন্স টাইমলাইন তৈরির টুল এবং কলেজের DDSR-কে গোপনে জানানোর ফর্ম।">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/noto-sans-bengali-bengali-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/noto-sans-bengali-bengali-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  /* No flash of the wrong theme. Runs before first paint. */
+  (function () {
+    try {
+      var c = window.localStorage.getItem("safesteps.theme");
+      var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/theme.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/quickexit.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link no-print" href="#main" data-i18n="skip_link">মূল কনটেন্টে যান</a>
+
+<header class="head-bar no-print">
+  <div class="wrap">
+      <button class="quick-exit no-print" type="button"><span data-i18n="quick_exit">দ্রুত বের হন</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2"/><path d="M10 12h11"/><path d="m18 9 3 3-3 3"/></svg></button>
+
+      <a class="brand" href="index.html">SafeSteps</a>
+
+<div class="head-tools">
+        <div class="lang-toggle" role="group" data-i18n-aria-label="lang_group_label"
+             aria-label="ভাষা বেছে নিন">
+          <button type="button" data-lang="bn" aria-pressed="true">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18"/>
+              <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18"/>
+            </svg>
+            <span>বাংলা</span>
+          </button>
+          <button type="button" data-lang="en" aria-pressed="false">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 5h9M8.5 3v2M11 5c0 3.3-2.4 6.4-6 7.6"/>
+              <path d="M6 9.5c1.2 2 3 3.4 5.4 4"/>
+              <path d="m13 20 3.6-9 3.6 9M14.4 17h4.4"/>
+            </svg>
+            <span>English</span>
+          </button>
+        </div>
+
+        <fieldset class="theme-switch">
+          <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>
+          <div class="theme-opts">
+            <label>
+              <input type="radio" name="theme" value="system">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_system">সিস্টেম</span>
+            </label>
+            <label>
+              <input type="radio" name="theme" value="dark">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_dark">ডার্ক</span>
+            </label>
+            <label>
+              <input type="radio" name="theme" value="light">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_light">লাইট</span>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+  </div>
+</header>
+
+<nav class="site-nav no-print" data-i18n-aria-label="nav_label" aria-label="প্রধান মেনু">
+  <div class="wrap">
+    <div class="nav">
+  <ul class="nav-list" role="list">
+  <li><a href="index.html" aria-current="page" data-i18n="nav_home">হোম</a></li>
+  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ সংরক্ষণ</a></li>
+  <li><a href="timeline.html" data-i18n="nav_timeline">টাইমলাইন</a></li>
+  </ul>
+  <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">গোপনে জানান</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+  <div class="wrap">
+
+    <section class="page-head">
+      <h1 data-i18n="home_h1">আপনার কলেজেই একজন বিশ্বস্ত মানুষ</h1>
+      <p class="lede" data-i18n="home_pitch">SafeSteps আপনার কলেজের ভেতরে একজন প্রশিক্ষিত, বিশ্বস্ত মানুষকে রাখে। হেল্পলাইন নয়, অ্যাপ নয়, পুলিশ নয়, যিনি আপনাকে আগে থেকেই চেনেন।</p>
+      <p class="covers-line" data-i18n="home_covers">এই পাতায় যা আছে: কীভাবে নিরাপদ থাকবেন, প্রমাণ কীভাবে সংরক্ষণ করবেন, এবং কীভাবে গোপনে জানাবেন।</p>
+    </section>
+
+    <figure class="motif no-print">
+      <svg viewBox="0 0 320 164" role="img" data-i18n-aria-label="motif_label" aria-label="অন্ধকার জানালার একটি গ্রিল, তার একটি জানালা জ্বলে আছে। জ্বল জানালাটি আপনার কলেজের DDSR।">
+        <rect x="0" y="0" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="64" y="0" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="128" y="0" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="192" y="0" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="256" y="0" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="0" y="56" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="64" y="56" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="128" y="56" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect class="lit-halo" x="170" y="34" width="96" height="84" rx="20"/>
+        <rect class="lit-halo lit-halo-near" x="180" y="44" width="76" height="64" rx="16"/>
+        <rect x="192" y="56" width="52" height="40" rx="4" fill="var(--amber)" stroke="var(--amber)"/>
+        <rect x="256" y="56" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="0" y="112" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="64" y="112" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="128" y="112" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="192" y="112" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+        <rect x="256" y="112" width="52" height="40" rx="4" fill="var(--surface)" stroke="var(--divider)"/>
+      </svg>
+      <figcaption data-i18n="motif_caption">একটি জ্বল জানালা: আপনার কলেজের নির্ধারিত ডিজিটাল নিরাপত্তা প্রতিনিধি, DDSR।</figcaption>
+    </figure>
+
+    <section class="section" aria-labelledby="home_choose_h">
+      <h2 id="home_choose_h" data-i18n="home_choose_h">কোনটা দরকার এখন</h2>
+      <div class="spec">
+        <div class="spec-row spec-row-primary">
+          <span class="spec-name" data-i18n="tile_report_h">গোপনে জানান</span>
+          <span class="spec-desc" data-i18n="tile_report_p">আপনার কলেজের DDSR-এর কাছে পাঠান। বে-নামে জানানোর সুবিধাও আছে।</span>
+          <a class="btn btn-secondary btn-sm spec-action" href="report.html" data-i18n="tile_report_a">ফর্ম পূরণ করুন</a>
+        </div>
+        <div class="spec-row">
+          <span class="spec-name" data-i18n="tile_evidence_h">প্রমাণ সংরক্ষণের নির্দেশিকা</span>
+          <span class="spec-desc" data-i18n="tile_evidence_p">কী কী সংরক্ষণ করবেন, কী করবেন না, কোথায় রাখবেন।</span>
+          <a class="btn btn-secondary btn-sm spec-action" href="evidence.html" data-i18n="tile_evidence_a">নির্দেশিকা পড়ুন</a>
+        </div>
+        <div class="spec-row">
+          <span class="spec-name" data-i18n="tile_timeline_h">ইভিডেন্স টাইমলাইন</span>
+          <span class="spec-desc" data-i18n="tile_timeline_p">আপনার ডিভাইসেই ঘটনার সময়ক্রম লিখে রাখুন। কোথাও সেভ হয় না।</span>
+          <a class="btn btn-secondary btn-sm spec-action" href="timeline.html" data-i18n="tile_timeline_a">টাইমলাইন তৈরি করুন</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-loose" aria-labelledby="home_how_h">
+      <h2 id="home_how_h" data-i18n="home_how_h">কীভাবে কাজ করে</h2>
+      <ol class="steps" role="list">
+        <li data-i18n="home_step_1">আপনি সাহস করে ফর্মটি পূরণ করেন। আপনি চাইলে নাম ছাড়াই জানাতে পারেন।</li>
+        <li data-i18n="home_step_2">ফর্মটি যায় আপনার নিজের কলেজের DDSR-এর কাছে।</li>
+        <li data-i18n="home_step_3">DDSR আপনার সঙ্গে কথা বলেন, এবং প্রমাণ সংরক্ষণে সাহায্য করেন। DDSR কোনো তদন্ত করেন না।</li>
+        <li data-i18n="home_step_4">পরের ধাপটি আপনি নিজে ঠিক করেন: কিছু না করা, পরামর্শ নেওয়া, পরিবারের সঙ্গে কথা বলা, কিংবা আইনি সহায়তা।</li>
+      </ol>
+      <p class="section-tight"><span class="ddsr-node"><span class="ddsr-dot" aria-hidden="true"></span><span data-i18n="ddsr_node">DDSR: আপনার কলেজের প্রশিক্ষিত, বিশ্বস্ত মানুষ</span></span></p>
+    </section>
+
+    <section class="section notice notice-coral" aria-labelledby="home_limits_h">
+      <h2 id="home_limits_h" data-i18n="home_limits_h">এই সাইট যা নয়</h2>
+      <ul class="choice-rows" role="list">
+        <li class="choice-row" data-i18n="limit_not_disciplinary">এটি শাস্তিমূলক ব্যবস্থা নয়।</li>
+        <li class="choice-row" data-i18n="limit_not_public">এটি প্রকাশ্য রিপোর্টিং প্ল্যাটফর্ম নয়। কেউ আপনার জানা দেওয়া তথ্য সবার সামনে দেখতে পাবে না।</li>
+        <li class="choice-row" data-i18n="limit_not_police">এটি পুলিশে অভিযোগ জমা দেওয়ার জায়গা নয়।</li>
+        <li class="choice-row" data-i18n="limit_not_gov">এটি কোনো সরকারি ব্যবস্থার সঙ্গে যুক্ত নয়।</li>
+        <li class="choice-row choice-row-critical" data-i18n="limit_confidentiality">গোপনীয়তা শেষ হয় শুধু দুই ক্ষেত্রে: তাৎক্ষণিক বিপদ, এবং আইনে বাধ্যতামূলক দায়িত্ব।</li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="safeuse_h">
+      <h2 id="safeuse_h" data-i18n="footer_tips_h">নিরাপদ ব্যবহারের টিপস</h2>
+      <ul class="safeuse" role="list">
+        <li class="safeuse-row">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5V9H3Z"/><rect x="3" y="9" width="18" height="11.5" rx="2.5"/><path d="M4.5 19.5 19.5 4.5"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_private">গোপন ইনকোগনিটো উইন্ডো ব্যবহার করতে পারেন।</span>
+        </li>
+        <li class="safeuse-row safeuse-row-critical">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.8-6.3"/><path d="M3.5 4.5V9H8"/><path d="M12 7.5V12l3 1.8"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_history">Quick Exit বোতামটি ব্রাউজারের ইতিহাস মুছে ফেলে না। কোনো ওয়েবসাইটই তা নিশ্চিত করতে পারে না।</span>
+        </li>
+        <li class="safeuse-row">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10.5 10h.01M14.5 10h.01M18 10h.01M8 14h8"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_esc">কীবোর্ডে Esc চাপলেও Quick Exit চালু হয়।</span>
+        </li>
+      </ul>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer no-print">
+  <div class="wrap">
+    <div class="footer-band">
+      <span class="footer-wordmark">SafeSteps</span>
+      <span class="footer-tagline" data-i18n="footer_tagline">আপনার কলেজের ভেতরে একজন প্রশিক্ষিত, বিশ্বস্ত মানুষ</span>
+    </div>
+    <p class="footer-note" data-i18n="footer_note">এই সাইট কোনো কেসের তথ্য সংরক্ষণ করে না। টাইমলাইন টুলটি শুধু আপনার ডিভাইসেই চলে।</p>
+  </div>
+</footer>
+
+</body>
+</html>

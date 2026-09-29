@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>গোপনে জানান: SafeSteps</title>
+<meta name="description" content="আপনার কলেজের DDSR-এর কাছে গোপনে জানান। বে-নামে জানানোর সুবিধা আছে। গোপনীয়তার সীমা আগেই বলা আছে।">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/noto-sans-bengali-bengali-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/noto-sans-bengali-bengali-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  /* No flash of the wrong theme. Runs before first paint. */
+  (function () {
+    try {
+      var c = window.localStorage.getItem("safesteps.theme");
+      var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/theme.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/quickexit.js" defer></script>
+<script src="js/form.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link no-print" href="#main" data-i18n="skip_link">মূল কনটেন্টে যান</a>
+
+<header class="head-bar no-print">
+  <div class="wrap">
+      <button class="quick-exit no-print" type="button"><span data-i18n="quick_exit">দ্রুত বের হন</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2"/><path d="M10 12h11"/><path d="m18 9 3 3-3 3"/></svg></button>
+
+      <a class="brand" href="index.html">SafeSteps</a>
+
+<div class="head-tools">
+        <div class="lang-toggle" role="group" data-i18n-aria-label="lang_group_label"
+             aria-label="ভাষা বেছে নিন">
+          <button type="button" data-lang="bn" aria-pressed="true">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18"/>
+              <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18"/>
+            </svg>
+            <span>বাংলা</span>
+          </button>
+          <button type="button" data-lang="en" aria-pressed="false">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 5h9M8.5 3v2M11 5c0 3.3-2.4 6.4-6 7.6"/>
+              <path d="M6 9.5c1.2 2 3 3.4 5.4 4"/>
+              <path d="m13 20 3.6-9 3.6 9M14.4 17h4.4"/>
+            </svg>
+            <span>English</span>
+          </button>
+        </div>
+
+        <fieldset class="theme-switch">
+          <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>
+          <div class="theme-opts">
+            <label>
+              <input type="radio" name="theme" value="system">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_system">সিস্টেম</span>
+            </label>
+            <label>
+              <input type="radio" name="theme" value="dark">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_dark">ডার্ক</span>
+            </label>
+            <label>
+              <input type="radio" name="theme" value="light">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+              </svg>
+              <span class="visually-hidden" data-i18n="theme_light">লাইট</span>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+  </div>
+</header>
+
+<nav class="site-nav no-print" data-i18n-aria-label="nav_label" aria-label="প্রধান মেনু">
+  <div class="wrap">
+    <div class="nav">
+  <ul class="nav-list" role="list">
+  <li><a href="index.html" data-i18n="nav_home">হোম</a></li>
+  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ সংরক্ষণ</a></li>
+  <li><a href="timeline.html" data-i18n="nav_timeline">টাইমলাইন</a></li>
+  </ul>
+  <a class="btn btn-primary nav-cta" href="report.html" aria-current="page" data-i18n="nav_report">গোপনে জানান</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+  <div class="wrap">
+
+    <section class="page-head">
+      <h1 data-i18n="report_h1">গোপনে জানান</h1>
+      <p class="covers-line" data-i18n="report_covers">এই পাতায় যা আছে: গোপনীয়তার সীমা, বে-নামে জানানোর সুবিধা, এবং জানানোর পরে যা হয়।</p>
+    </section>
+
+    <section class="section notice notice-amber" aria-labelledby="rp_limits_h">
+      <h2 id="rp_limits_h" data-i18n="rp_limits_h">গোপনীয়তার সীমা</h2>
+      <p data-i18n="rp_limits_1">আপনার কলেজের DDSR আপনার জানা দেওয়া তথ্য আপনার অনুমতি ছাড়া অন্য কারও কাছে দেবেন না।</p>
+      <p data-i18n="rp_limits_2">গোপনীয়তা শেষ হয় শুধু দুই ক্ষেত্রে: তাৎক্ষণিক বিপদ, এবং আইনে বাধ্যতামূলক দায়িত্ব। এই ছাড় আর কোথাও নেই।</p>
+      <p class="chip-note" data-i18n="rp_limits_3">এই ফর্মটি আপনার কলেজের DDSR-এর কাছে পৌঁছানোর জন্য বানানো। এটি পুলিশে অভিযোগ জমা দেওয়ার জায়গা নয়, এবং কোনো সরকারি ব্যবস্থার সঙ্গে যুক্ত নয়।</p>
+    </section>
+
+    <section class="section" aria-labelledby="rp_anon_h">
+      <h2 id="rp_anon_h" data-i18n="rp_anon_h">বে-নামে জানানো</h2>
+      <ul class="choice-rows" role="list">
+        <li class="choice-row choice-row-yes">
+          <span class="choice-mark" aria-hidden="true"></span>
+          <span class="choice-text" data-i18n="rp_anon_1">আপনি চাইলে নাম ছাড়াই জানাতে পারেন।</span>
+        </li>
+        <li class="choice-row">
+          <span class="choice-mark" aria-hidden="true"></span>
+          <span class="choice-text" data-i18n="rp_anon_2">তবে বে-নামে জানালে DDSR আপনাকে ফিরে উত্তর দিতে পারবেন না, কারণ তিনি জানেন না আপনি কে।</span>
+        </li>
+        <li class="choice-row choice-row-yes">
+          <span class="choice-mark" aria-hidden="true"></span>
+          <span class="choice-text" data-i18n="rp_anon_3">আপনি চাইলে একটি যোগাযোগের উপায় দিতে পারেন। সেটি ঐচ্ছিক, কিন্তু দিলে DDSR আপনার সঙ্গে কথা বলতে পারেন।</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="rp_next_h">
+      <h2 id="rp_next_h" data-i18n="rp_next_h">জানানোর পরে যা হয়</h2>
+      <ol class="steps" role="list">
+        <li data-i18n="rp_next_1">আপনার তথ্য যায় আপনার নিজের কলেজের DDSR-এর কাছে।</li>
+        <li data-i18n="rp_next_2">যোগাযোগের উপায় দিলে DDSR আপনার সঙ্গে কথা বলেন, এবং প্রমাণ সংরক্ষণে সাহায্য করেন।</li>
+        <li data-i18n="rp_next_3">DDSR কোনো তদন্ত করেন না, কাউকে শাস্তি দেন না, আর কোনো কিছু আপনার পক্ষে জমা দেন না।</li>
+        <li data-i18n="rp_next_4">পরের ধাপটি আপনি নিজে ঠিক করেন: কিছু না করা, পরামর্শ নেওয়া, পরিবারের সঙ্গে কথা বলা, কিংবা আইনি সহায়তা নেওয়া।</li>
+      </ol>
+    </section>
+
+    <section class="section form-section" aria-labelledby="rp_form_h">
+      <h2 id="rp_form_h" data-i18n="rp_form_h">ফর্ম পূরণ করুন</h2>
+
+      <p class="section-tight"><span class="chip chip-block" id="endpoint-chip" data-i18n="rp_endpoint_chip" hidden>[ফর্ম এন্ডপয়েন্ট সেট করা হয়নি]</span></p>
+
+      <form id="report-form" class="section-tight" novalidate>
+
+        <fieldset class="group" aria-describedby="about-hint">
+          <legend data-i18n="rp_grp_about">আপনার সম্পর্কে</legend>
+          <p class="hint" id="about-hint" data-i18n="rp_grp_about_hint">এই দুইটি ঘর ছাড়া আপনার জানা দেওয়া তথ্য পাঠানো যাবে না।</p>
+
+          <label class="field" for="college">
+            <span class="label" data-i18n="rp_college_label">আপনার কলেজের নাম</span>
+            <input type="text" id="college" name="college" required autocomplete="organization"
+                   aria-describedby="college-error" data-i18n-placeholder="rp_college_ph" placeholder="যেমন: নাম লিখুন">
+            <span class="form-error" id="college-error" hidden></span>
+          </label>
+
+          <div class="field">
+            <label class="label" for="what" data-i18n="rp_what_label">যা ঘটেছে</label>
+            <span class="hint" id="what-hint" data-i18n="rp_what_hint">নিজের ভাষায় লিখুন। তারিখ, সময় আর প্ল্যাটফর্ম যদি মনে থাকে লিখে দিন। ছবি বা ফাইল পাঠাবেন না।</span>
+            <textarea id="what" name="what" required aria-describedby="what-hint what-error" data-i18n-placeholder="rp_what_ph" placeholder="যা ঘটেছে সংক্ষেপে লিখুন"></textarea>
+            <span class="form-error" id="what-error" hidden></span>
+          </div>
+        </fieldset>
+
+        <fieldset class="group" aria-describedby="contact-hint">
+          <legend data-i18n="rp_grp_contact">যোগাযোগের উপায় (ঐচ্ছিক)</legend>
+          <p class="hint" id="contact-hint" data-i18n="rp_grp_contact_hint">এই তিনটি ঘরের যেকোনোটি খালি রাখতে পারেন।</p>
+
+          <label class="field" for="contact-name">
+            <span class="label" data-i18n="rp_name_label">নাম</span>
+            <input type="text" id="contact-name" name="contactName" autocomplete="name" data-i18n-placeholder="rp_name_ph" placeholder="আপনার নাম">
+          </label>
+
+          <label class="field" for="contact-phone">
+            <span class="label" data-i18n="rp_phone_label">ফোন নম্বর</span>
+            <input type="tel" id="contact-phone" name="contactPhone" autocomplete="tel" data-i18n-placeholder="rp_phone_ph" placeholder="যেমন: 01XXXXXXXXX">
+          </label>
+
+          <label class="field" for="contact-email">
+            <span class="label" data-i18n="rp_email_label">ইমেইল</span>
+            <input type="email" id="contact-email" name="contactEmail" autocomplete="email" data-i18n-placeholder="rp_email_ph" placeholder="আপনার ইমেইল ঠিকানা">
+          </label>
+
+          <p class="notice" id="anon-note" hidden aria-live="polite">
+            <span class="notice-title" data-i18n="rp_anon_note_title">বে-নামে জানানো চালু</span>
+            <span data-i18n="rp_anon_note_body">যোগাযোগের ঘরগুলো বন্ধ করে দেওয়া হয়েছে এবং খালি করা হয়েছে। বে-নামে জানালে DDSR ফিরে উত্তর দিতে পারবেন না।</span>
+          </p>
+        </fieldset>
+
+        <div class="checkbox">
+          <!-- the label is a real label for the input and it covers the whole box,
+               so any part of the box toggles. The helper text sits outside it, so
+               a screen reader does not read the instruction as part of the name. -->
+          <label class="checkbox-hit" for="anonymous"></label>
+          <input type="checkbox" id="anonymous" name="anonymous"
+                 aria-labelledby="anon-label" aria-describedby="anon-hint anon-note">
+          <div>
+            <span class="label" id="anon-label" data-i18n="rp_anon_label">আমি নাম ছাড়া জানাতে চাই</span>
+            <span class="hint" id="anon-hint" data-i18n="rp_anon_hint">এটি বেছে নিলে উপরের তিনটি যোগাযোগের ঘর মুছে যাবে এবং বন্ধ হয়ে যাবে।</span>
+          </div>
+        </div>
+
+        <p class="section-tight">
+          <button class="btn btn-primary" type="submit" id="submit-btn" data-i18n="rp_submit">জানিয়ে দিন</button>
+        </p>
+
+        <p id="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="section notice notice-coral" aria-labelledby="rp_after_h">
+      <h2 id="rp_after_h" data-i18n="rp_after_h">জরুরি বিপদ হলে</h2>
+      <p data-i18n="rp_after_p">যদি কেউ আপনাকে ক্ষতি করার ভয় দেখাচ্ছে, তাহলে এই ফর্মের জন্য অপেক্ষা না করে সরাসরি নিরাপত্তার ব্যবস্থা নিন।</p>
+      <p class="section-tight"><span class="chip chip-block" data-i18n="ev_danger_chip">[যাচাই করা জরুরি ও রেফারেল তথ্য]</span></p>
+    </section>
+
+    <section class="section" aria-labelledby="safeuse_h">
+      <h2 id="safeuse_h" data-i18n="footer_tips_h">নিরাপদ ব্যবহারের টিপস</h2>
+      <ul class="safeuse" role="list">
+        <li class="safeuse-row">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5V9H3Z"/><rect x="3" y="9" width="18" height="11.5" rx="2.5"/><path d="M4.5 19.5 19.5 4.5"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_private">গোপন ইনকোগনিটো উইন্ডো ব্যবহার করতে পারেন।</span>
+        </li>
+        <li class="safeuse-row safeuse-row-critical">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 12a8.5 8.5 0 1 0 2.8-6.3"/><path d="M3.5 4.5V9H8"/><path d="M12 7.5V12l3 1.8"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_history">Quick Exit বোতামটি ব্রাউজারের ইতিহাস মুছে ফেলে না। কোনো ওয়েবসাইটই তা নিশ্চিত করতে পারে না।</span>
+        </li>
+        <li class="safeuse-row">
+          <svg class="i safeuse-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10.5 10h.01M14.5 10h.01M18 10h.01M8 14h8"/></svg>
+          <span class="safeuse-text" data-i18n="footer_tip_esc">কীবোর্ডে Esc চাপলেও Quick Exit চালু হয়।</span>
+        </li>
+      </ul>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer no-print">
+  <div class="wrap">
+    <div class="footer-band">
+      <span class="footer-wordmark">SafeSteps</span>
+      <span class="footer-tagline" data-i18n="footer_tagline">আপনার কলেজের ভেতরে একজন প্রশিক্ষিত, বিশ্বস্ত মানুষ</span>
+    </div>
+    <p class="footer-note" data-i18n="footer_note">এই সাইট কোনো কেসের তথ্য সংরক্ষণ করে না। টাইমলাইন টুলটি শুধু আপনার ডিভাইসেই চলে।</p>
+  </div>
+</footer>
+
+</body>
+</html>
