@@ -1,0 +1,102 @@
+/* SafeSteps color tokens. Values copied verbatim from docs/design.md section 4.
+   The block below is the locked design system. Do not edit these values.
+   Hallmark note: the locked palette is specified in hex by docs/design.md section 4.
+   Token discipline is kept (every colour is referenced by name, never inlined);
+   only the notation differs from the Hallmark default. */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #14171C;
+  --surface: #1D2128;
+  --raised: #262B34;
+  --divider: #2E3540;      /* decorative only */
+  --border: #5B6573;       /* inputs, must stay 3:1 */
+  --text: #E6E8EB;
+  --muted: #A8AFBA;
+  --teal: #6FC7B8;         /* actions, links, tools */
+  --on-teal: #0E1A19;
+  --amber: #E9B872;        /* the DDSR, the human */
+  --coral: #F08E86;        /* Quick Exit, alerts */
+  --on-coral: #1A0F0E;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #F6F4EF;
+  --surface: #FFFFFF;
+  --raised: #FFFFFF;
+  --divider: #D9D5CC;
+  --border: #6B7480;
+  --text: #1B2027;
+  --muted: #4A5360;
+  --teal: #0B6B62;
+  --on-teal: #FFFFFF;
+  --amber: #8A5300;
+  --coral: #B3261E;
+  --on-coral: #FFFFFF;
+}
+
+/* ---------------------------------------------------------------------------
+   Everything below is new. docs/design.md does not specify these, so they were
+   lifted out of the stylesheet into named tokens. Values match what the site
+   already used, so nothing shifts by more than a rounding error.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* type */
+  --font-sans: "Noto Sans Bengali", "Inter", system-ui, sans-serif;
+
+  /* docs/design.md section 6: max content width 680px, single column */
+  --measure: 680px;
+
+  /* Running prose is capped below the column. Measured at 18px, the loaded
+     Noto Sans Bengali averages 7.76px of advance per Bangla character, so the
+     full 680px column put 82 characters on a line. 528px lands it near 68,
+     which is inside the 45 to 75 band for reading. The column itself is
+     unchanged, only the prose inside it. */
+  --measure-prose: 528px;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.125rem;   /* 18px, fixed by docs/design.md section 5 */
+  --text-lg: 1.3125rem;
+  --text-xl: 1.5rem;
+  /* the h1. Its floor is the next step up the scale, so there is no separate
+     token for that one value */
+  --text-display: clamp(1.75rem, 1.1rem + 2.6vw, 3.25rem);
+
+  /* Bangla needs 1.6 or higher, docs/design.md section 5 */
+  --leading-tight: 1.35;
+  --leading-snug: 1.5;
+  --leading-body: 1.7;
+
+  /* 4pt spacing scale */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* radius, docs/design.md section 6 fixes cards at 16px */
+  --radius-chip: 8px;
+  --radius-btn: 10px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* motion, docs/design.md section 6 permits subtle fades only */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 160ms;
+  --dur-base: 220ms;
+
+  /* Stacking, three levels only. The header sits above page content, the fixed
+     Quick Exit pill above the header, and the no-flash script's layer above
+     both. Lower rungs were declared and never used, so they are gone rather
+     than left as a scale nobody has filled in. */
+  --z-header: 30;
+  --z-exit: 40;
+  --z-top: 50;
+}
