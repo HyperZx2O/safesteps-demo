@@ -1,0 +1,2017 @@
+/* Hallmark · genre: editorial · macrostructure: 13 Index-First (index), 05 Workbench
+ * (timeline), 02 Long Document (evidence, report) · design-system: docs/design.md
+ * · designed-as-app · nav: N9 Edge-aligned minimal · footer: Ft1 Mast-headed
+ * All colour, font, radius, target size and motion limits come from docs/design.md.
+ * No em dashes or en dashes in this file. */
+
+/* ---------- reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+fieldset,
+legend,
+table {
+  margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* ---------- typography ---------- */
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: 0;
+  overflow-x: clip;
+  overflow-wrap: break-word;
+  /* viewport-fit=cover is set in the meta tag, which lets the page reach under a
+     notch. The insets are the padding that keeps content back out of it. The
+     right inset also keeps the fixed Quick Exit control clear of a rounded
+     corner in landscape, where the cutout is on one side only. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  font-style: normal;
+  line-height: var(--leading-tight);
+  letter-spacing: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* Heading rhythm. Every heading binds tightly to the content it introduces,
+   and the space between groups comes from the section margins, which is where
+   it is generous. h2 had no bottom margin at all, so on every page the largest
+   section heading sat flush against the first line of its own list. */
+h1 {
+  font-size: var(--text-display);
+  margin-bottom: var(--space-xs);
+}
+
+h2 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2xs);
+}
+
+h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2xs);
+}
+
+p {
+  margin-block: 0 var(--space-sm);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--teal);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) {
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+strong {
+  font-weight: 600;
+}
+
+small,
+.muted {
+  color: var(--muted);
+}
+
+.muted {
+  font-size: var(--text-sm);
+}
+
+.hint {
+  display: block;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2xs);
+}
+
+/* ---------- layout, with a varied rhythm rather than one repeated pad ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--space-sm);
+}
+
+.section {
+  margin-block: var(--space-lg);
+}
+
+.section-tight {
+  margin-block: var(--space-md);
+}
+
+.section-loose {
+  margin-block: var(--space-xl);
+}
+
+.stack > * + * {
+  margin-top: var(--space-sm);
+}
+
+/* ---------- skip link and screen reader text ---------- */
+
+/* Parked with a transform rather than the usual left: -9999px. A large negative
+   offset extends the scrollable area, which is invisible in a left to right
+   document because the overflow falls off the start edge, but it does create a
+   10,000px horizontal scroll the moment the document direction flips. */
+.skip-link {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  z-index: var(--z-top);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--teal);
+  color: var(--on-teal);
+  font-weight: 600;
+  border-end-end-radius: var(--radius-btn);
+  transform: translateY(-120%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* main is focusable so the skip link actually lands on it. Its ring is drawn
+   inside the top edge, so it reads as "you are inside the content now" rather
+   than as a mis-drawn box around the whole page. */
+main:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: -2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus rings appear instantly. The ring is never animated. */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ---------- header shell ---------- */
+/* The header itself scrolls away. Only the Quick Exit control stays fixed, which
+   is exactly what docs/design.md section 7 requires: fixed at the top, stays on
+   scroll. Making the whole header sticky would cost 60 to 120px of a 360px
+   phone screen for the length of the page, and the navigation is not worth that. */
+
+.head-bar {
+  position: relative;
+  z-index: var(--z-header);
+  background: var(--bg);
+}
+
+.head-bar > .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-3xs);
+  min-height: 56px;
+  padding-block: var(--space-2xs);
+  /* reserves the corner the fixed Quick Exit control occupies */
+  padding-inline-end: 130px;
+  border-bottom: 1px solid var(--divider);
+}
+
+/* the exit control is first in the DOM so it is second in tab order, after the
+   skip link, which is what docs/design.md section 7 requires. order moves it to
+   the visual right without touching tab order. */
+.quick-exit {
+  order: 3;
+  position: fixed;
+  /* the notch and the home indicator live in the insets, so the control starts
+     below the top one and ends above the bottom one */
+  top: max(var(--space-2xs), env(safe-area-inset-top));
+  /* sits against the end edge of the content measure on wide screens, and
+     against the viewport edge once the measure fills the screen */
+  inset-inline-end: max(
+    calc(var(--space-2xs) + env(safe-area-inset-right)),
+    calc((100vw - var(--measure)) / 2 - var(--space-sm) + env(safe-area-inset-right))
+  );
+  z-index: var(--z-exit);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  min-height: 44px;
+  padding: var(--space-3xs) var(--space-xs);
+  background: var(--coral);
+  color: var(--on-coral);
+  border: 0;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.28);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.quick-exit .i {
+  width: 17px;
+  height: 17px;
+}
+
+.quick-exit:active {
+  transform: translateY(1px);
+}
+
+.brand {
+  order: 1;
+  margin-inline-end: auto;
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Hover styling is only applied where hover actually exists. On a touch device
+   a tap can leave an element in :hover, which reads as a stuck state, so the
+   feedback is moved to :active there instead. The resting appearance is
+   identical either way, so nothing is hover only. */
+@media (hover: hover) {
+  .brand:hover {
+    color: var(--teal);
+  }
+
+  .guide-sec-h:hover {
+    color: var(--teal);
+  }
+
+  .nav-list a:hover {
+    color: var(--teal);
+  }
+
+  .btn-primary:hover {
+    box-shadow: inset 0 0 0 2px var(--text);
+  }
+
+  .btn-secondary:hover {
+    background: var(--raised);
+  }
+
+  .quick-exit:hover {
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.28), inset 0 0 0 2px var(--on-coral);
+  }
+
+  .lang-toggle button:hover {
+    color: var(--text);
+  }
+
+  .theme-opts label:hover {
+    color: var(--text);
+    background: var(--raised);
+  }
+
+  .checkbox:hover {
+    border-color: var(--teal);
+  }
+
+  input:hover:not(:disabled),
+  textarea:hover:not(:disabled) {
+    border-color: var(--teal);
+  }
+}
+
+@media (hover: none) {
+  .btn-primary:active {
+    box-shadow: inset 0 0 0 2px var(--text);
+  }
+
+  .btn-secondary:active {
+    background: var(--raised);
+  }
+
+  .quick-exit:active {
+    box-shadow: inset 0 0 0 2px var(--on-coral);
+  }
+
+  .nav-list a:active {
+    color: var(--teal);
+  }
+
+  .checkbox:active {
+    border-color: var(--teal);
+  }
+}
+
+.head-tools {
+  order: 2;
+  display: flex;
+  flex: none;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* Four controls plus the wordmark cannot share one row below 544px with every
+   label visible. Under that width the toggles and the exit drop their text and
+   keep their icons. Both labels survive for screen readers, and the coral fill
+   plus the arrow keep Quick Exit the most obvious control on the page. */
+@media (max-width: 34rem) {
+  .brand {
+    font-size: var(--text-base);
+  }
+
+  /* the exit control is icon only here, so it needs a much smaller gutter */
+  .head-bar > .wrap {
+    padding-inline-end: 56px;
+  }
+
+  .quick-exit {
+    width: 44px;
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  /* same visually hidden treatment as .visually-hidden, scoped to this
+     breakpoint so the labels come back on wider screens */
+  .quick-exit span,
+  .lang-toggle button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .lang-toggle button {
+    position: relative;
+    width: 32px;
+    min-height: 38px;
+    padding-inline: 0;
+  }
+
+  .theme-opts label {
+    width: 30px;
+  }
+}
+
+/* below 24rem the wordmark, both toggles and the exit gutter stop fitting on one
+   comfortable row, so the toggles take a second line of their own */
+@media (max-width: 24rem) {
+  .brand {
+    font-size: var(--text-sm);
+  }
+
+  .head-bar > .wrap {
+    padding-inline-end: 52px;
+  }
+
+  .lang-toggle button {
+    width: 30px;
+  }
+
+  .theme-opts label {
+    width: 28px;
+  }
+
+  /* The toggles drop onto their own line under the wordmark. They stay flush
+     left so the wordmark, the toggles and the nav links all share one edge. */
+  .head-tools {
+    flex: 0 0 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ---------- navigation row, scrolls away ---------- */
+
+.site-nav {
+  padding-block: var(--space-3xs) var(--space-xs);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-sm);
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs) var(--space-md);
+}
+
+.nav-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.nav-list a[aria-current="page"] {
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--teal);
+}
+
+.nav-cta {
+  margin-inline-start: auto;
+  min-height: 44px;
+  padding: var(--space-3xs) var(--space-sm);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+/* the navigation links and the primary action stop sharing a line below 24rem,
+   so the action takes the full width. Standard mobile pattern, and it reads as
+   deliberate rather than as a squeeze. */
+@media (max-width: 24rem) {
+  .nav-cta {
+    margin-inline-start: 0;
+    width: 100%;
+  }
+}
+
+/* ---------- icon buttons, one stroke weight, currentColor ---------- */
+
+.i {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  min-width: 0;
+}
+
+.lang-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: var(--space-3xs) var(--space-2xs);
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-radius: var(--radius-chip);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.lang-toggle button[aria-pressed="true"] {
+  background: var(--raised);
+  color: var(--teal);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.theme-switch {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.theme-opts {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+}
+
+.theme-opts label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-chip);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* the radio fills its label, so the hit target and the focus ring land on the icon */
+.theme-opts input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+}
+
+.theme-opts .i {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-opts label:has(input:checked) {
+  background: var(--raised);
+  color: var(--teal);
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.theme-opts label:has(input:focus-visible) {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ---------- browser surfaces, themed so nothing looks borrowed ---------- */
+
+::selection {
+  background: var(--teal);
+  color: var(--on-teal);
+}
+
+input,
+textarea {
+  caret-color: var(--teal);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+/* ---------- page head ---------- */
+
+.page-head {
+  padding-top: var(--space-md);
+}
+
+.page-head h1 {
+  margin-bottom: var(--space-2xs);
+}
+
+/* A neutral signpost, one sentence. On the home page the real lede carries the
+   voice and this stays quiet. On an inner page there is no lede, so the jump
+   from a 51px h1 straight to 15px was abrupt; there it steps up one size and
+   keeps the muted colour, which is a signpost rather than a headline. */
+.covers-line {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.page-head:has(h1 + .covers-line) .covers-line {
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  max-width: var(--measure-prose);
+}
+
+/* Running prose, and the lists that read as prose. The column stays 680px, the
+   text inside it stops at --measure-prose, which is what keeps the eye from
+   losing the start of the next line. Headings keep the full column, and so do
+   the rows that are scanned rather than read: the spec sheet, the form fields
+   and the situation cells, which are a two column grid at desktop widths. */
+main p,
+main ul,
+main ol,
+.steps,
+.hint,
+.chip-note {
+  max-width: var(--measure-prose);
+}
+
+/* the opening sentence of the home page, set above body size. It is the one
+   paragraph on the site that a first time visitor reads before anything else,
+   so it gets the display's own leading and its own space beneath. */
+.lede {
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  max-width: var(--measure-prose);
+  margin-bottom: var(--space-sm);
+}
+
+/* on a 360px phone the lede at 21px runs to six lines and starts to shout over
+   the h1, so it steps back one size. It is still above body. */
+@media (max-width: 30rem) {
+  .lede {
+    font-size: var(--text-base);
+  }
+}
+
+.lede + .covers-line {
+  padding-top: var(--space-2xs);
+  border-top: 1px solid var(--divider);
+}
+
+/* ---------- buttons, eight states ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 48px;
+  padding: var(--space-2xs) var(--space-md);
+  border-radius: var(--radius-btn);
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: var(--on-teal);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.btn-sm {
+  min-height: 44px;
+  padding: var(--space-2xs) var(--space-sm);
+  font-size: var(--text-sm);
+}
+
+/* Disabled drops the fill and the border rather than fading the whole button.
+   A blanket opacity fades the label and the fill by the same amount, which
+   pushes the pair together: measured at 0.55 it lands on 3.56:1 in the dark
+   theme and 2.54:1 in the light theme. Here the label keeps its own contrast on
+   a plain surface at 6.43:1 and 7.79:1, and the button still reads as inert
+   because it has no fill and no hover ring. */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  background: var(--raised);
+  color: var(--muted);
+  border-color: var(--border);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* a disabled button must not gain a ring on any pointer, and the hover block
+   above does not reach it, so the override is stated here rather than relying on
+   source order */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  box-shadow: none;
+}
+
+/* in flight the fill stays, because the action is happening and the label is
+   still the one the user pressed */
+.btn[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+/* ---------- placeholder chip ---------- */
+
+.chip {
+  display: inline-block;
+  padding: var(--space-3xs) var(--space-2xs);
+  border: 1px dashed var(--coral);
+  border-radius: var(--radius-chip);
+  color: var(--coral);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.chip-block {
+  display: block;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.chip-note {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-2xs);
+}
+
+/* ---------- DDSR amber node ---------- */
+
+.ddsr-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-pill);
+  color: var(--amber);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.ddsr-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex: none;
+}
+
+/* ---------- notices, single containment layer, no card in card ---------- */
+
+.notice {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.notice > :first-child {
+  margin-top: 0;
+}
+
+.notice > :last-child {
+  margin-bottom: 0;
+}
+
+.notice-amber {
+  border-color: var(--amber);
+}
+
+.notice-coral {
+  border-color: var(--coral);
+}
+
+/* This card lists what the site is not, so it must not outweigh the brand
+   image or the call to action. The coral edge stays because that edge is the
+   accessibility signal: someone scanning for danger finds the line, and the
+   rest of the box gets out of the way. */
+.notice-coral {
+  background: transparent;
+  /* the other three edges go entirely, otherwise the box survives the change
+     and the card still reads as a box rather than as a warning line */
+  border: 0;
+  border-inline-start: 2px solid var(--coral);
+  border-radius: 0;
+  padding: var(--space-2xs) 0 var(--space-2xs) var(--space-md);
+}
+
+.notice-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-2xs);
+}
+
+.notice ul,
+.notice ol {
+  margin: 0;
+  padding-inline-start: var(--space-md);
+}
+
+.notice li {
+  margin-bottom: var(--space-2xs);
+}
+
+.notice li:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- F3 tabular spec sheet, replaces the three equal tile columns ---------- */
+
+.spec {
+  border-top: 1px solid var(--divider);
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2xs) var(--space-md);
+  /* the top row gets more room than the rows beneath it, so the sheet opens
+     with weight and then settles into an even rhythm */
+  padding-block: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--divider);
+}
+
+.spec-row:first-child {
+  padding-top: var(--space-md);
+}
+
+@media (min-width: 34rem) {
+  .spec-row {
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: var(--space-md);
+  }
+
+  .spec-row > .spec-action {
+    justify-self: end;
+    white-space: nowrap;
+  }
+}
+
+.spec-name {
+  font-weight: 600;
+}
+
+.spec-desc {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  min-width: 0;
+}
+
+.spec-row-primary .spec-name {
+  color: var(--teal);
+}
+
+.spec-row-primary .spec-desc {
+  color: var(--text);
+}
+
+/* ---------- F4 step sequence ---------- */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+
+.steps > li {
+  position: relative;
+  padding-inline-start: 40px;
+  padding-block: var(--space-xs);
+  counter-increment: step;
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--space-2xs);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- motif band, the lit window ---------- */
+/* This is the brand's one image, so on the home page it is given the full width
+   of the measure instead of sitting as a small accent. Its caption moves beside
+   it at desktop widths and stays under it on a phone. */
+
+/* The halo is the point of the whole motif: one window in a dark facade is lit
+   from inside. Two nested rings at low opacity read as spill without a filter
+   or a blur, so it costs nothing to paint and cannot animate or flash. */
+.lit-halo {
+  fill: var(--amber);
+  opacity: 0.08;
+}
+
+.lit-halo-near {
+  opacity: 0.1;
+}
+
+/* In the light theme amber is a dark brown, so at the same alpha the halo reads
+   as a muddy tan box on cream. Daylight spills far less than lamplight, so the
+   halo is dialled back rather than being a different shape. */
+:root[data-theme="light"] .lit-halo {
+  opacity: 0.05;
+}
+
+:root[data-theme="light"] .lit-halo-near {
+  opacity: 0.07;
+}
+
+/* The motif is the one moment on the home page that is not a box, so it runs the
+   full measure instead of sitting beside its caption as a 300px object. The
+   loosest gap in the whole page now falls after it, which is what makes it read
+   as a band rather than a widget. */
+.motif {
+  display: block;
+  /* more space above than below, so the band reads as belonging to the hero */
+  padding-block: var(--space-lg) var(--space-sm);
+  min-width: 0;
+}
+
+.motif svg {
+  width: 100%;
+  height: auto;
+}
+
+.motif figcaption {
+  display: block;
+  margin-top: var(--space-sm);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  /* the facade takes the full measure, the caption keeps a reading measure */
+  max-width: var(--measure-prose);
+}
+
+/* ---------- forms ---------- */
+
+.field {
+  display: block;
+  margin-bottom: var(--space-md);
+}
+
+/* A label, whether it wraps its field or stands alone next to a for, is set the
+   same way. Wrapping the field in the label made the helper text part of the
+   accessible name, so a screen reader read the instruction twice.
+
+   The label steps up above body size and the placeholder drops below it. Left
+   at the same size and weight they were indistinguishable on screen, which is
+   the one thing a label exists to prevent. The placeholder is an example, so
+   it is allowed to be quieter than the thing it sits under. */
+.field > .label,
+label.label {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-3xs);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-xs) var(--space-sm);
+  /* background is --bg, not --surface, so the input border keeps its 3:1 ratio
+     against its own background in the dark theme */
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: var(--leading-snug);
+}
+
+input:active:not(:disabled),
+textarea:active:not(:disabled) {
+  border-color: var(--teal);
+}
+
+input:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--coral);
+}
+
+/* The placeholder is an example of what to write, not a second label, so it
+   sits a step below the label in both size and colour. It still clears 4.5:1
+   against the input background, which tools/contrast.py checks. */
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  opacity: 1;
+}
+
+/* Required fields carry an asterisk, added here rather than in the markup so no
+   i18n key is needed and no screen reader hears a stray character. The
+   alternative text says which fields are required, so the mark is decoration
+   that repeats information already available. */
+input[required] + .form-error::before,
+textarea[required] + .form-error::before {
+  content: "";
+}
+
+.field:has(> input[required]) > .label::after,
+.field:has(> textarea[required]) > .label::after {
+  content: "*";
+  color: var(--coral);
+  margin-inline-start: var(--space-3xs);
+}
+
+fieldset.group {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-lg);
+  min-width: 0;
+}
+
+/* A group heading and a field label were the same size and weight, so the
+   structure of the form did not read. The legend steps above the labels and
+   carries a hairline, which is the mark the rest of the site uses to separate
+   a group from what follows it. */
+fieldset.group legend {
+  display: block;
+  width: 100%;
+  padding: 0 0 var(--space-2xs);
+  border-bottom: 1px solid var(--divider);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-sm);
+}
+
+.checkbox {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: flex-start;
+  padding: var(--space-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 24px;
+  height: 24px;
+  margin: 2px 0 0;
+  flex: none;
+  accent-color: var(--teal);
+}
+
+/* The whole box is a target. A transparent label covers it so a click anywhere
+   toggles, while the helper text stays outside the label so it is not read as
+   part of the control name. */
+.checkbox {
+  position: relative;
+}
+
+.checkbox-hit {
+  position: absolute;
+  inset: 0;
+  /* the text block is a later sibling, so the hit label needs to sit above it
+     to catch the click anywhere in the box */
+  z-index: 1;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+}
+
+.checkbox:has(input:checked) {
+  border-color: var(--teal);
+}
+
+.checkbox:has(input:focus-visible) {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.checkbox .label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0;
+}
+
+.form-error,
+.form-ok {
+  display: block;
+  margin-top: var(--space-2xs);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.form-error {
+  color: var(--coral);
+}
+
+.form-ok {
+  color: var(--teal);
+}
+
+/* ---------- timeline entries ---------- */
+
+.entry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry {
+  padding-block: var(--space-sm);
+  border-bottom: 1px solid var(--divider);
+}
+
+.entry:last-child {
+  border-bottom: 0;
+}
+
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-sm);
+  align-items: baseline;
+  margin-bottom: var(--space-3xs);
+}
+
+.entry-date {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-actions {
+  margin-inline-start: auto;
+  display: flex;
+  gap: var(--space-2xs);
+}
+
+.entry-actions .btn {
+  min-height: 44px;
+  padding: var(--space-3xs) var(--space-xs);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.entry p {
+  margin-bottom: var(--space-3xs);
+}
+
+/* The facade strip sits beside the entry list and stays after the first entry,
+   because the moment worth marking is the accumulation: each event lights one
+   more window, so a user can see how much they have written down without
+   counting. It repeats the home page motif, so the page and the product share
+   one image, and it adds no copy and no claim. */
+.record-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xs);
+}
+
+.record-head .facade {
+  width: 88px;
+}
+
+.record-count {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The empty state carries the motif, so the first thing a user sees on the tool
+   page is the same image as the home page, with every pane dark because
+   nothing is recorded yet. The record strip above it lights one pane per
+   event, so the pair reads as before and after without a word of copy. */
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.empty-state p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.empty-facade {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  width: 148px;
+}
+
+.empty-facade span {
+  aspect-ratio: 52 / 40;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  background: var(--bg);
+}
+
+/* the facade, same five by three grid as the home page motif, every pane dark
+   because nothing has been recorded yet */
+.facade {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  width: 132px;
+  flex: none;
+}
+
+.facade span {
+  aspect-ratio: 52 / 40;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+/* one pane lights per recorded event, so the strip is a count you can read at a
+   glance without a number. It never claims more than what is in the list. */
+.facade span[data-lit="true"] {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 0 6px rgb(233 184 114 / 0.08);
+}
+
+:root[data-theme="light"] .facade span[data-lit="true"] {
+  box-shadow: 0 0 0 6px rgb(138 83 0 / 0.05);
+}
+
+#print-sheet {
+  display: none;
+}
+
+/* ---------- footer, quiet by default ---------- */
+/* The footer is end matter, not content. Its heading stays an h2 so the screen
+   reader outline is unchanged, but it is set at label size so it does not
+   compete with the section headings above it. The three tips are three
+   sentences, not a set of items to scan, so they run as one block with no list
+   indent and no per-item spacing. */
+
+.site-footer {
+  margin-top: var(--space-xl);
+  padding-block: var(--space-lg) var(--space-md);
+  border-top: 1px solid var(--divider);
+}
+
+/* the four situation cells are the second level under the disclosure summary,
+   so they carry the section's own size rather than the old third-level size */
+.situation-h {
+  font-size: var(--text-lg);
+}
+
+/* ---------- safe use, a card of three facts about the exit control ---------- */
+/* Each tip gets a glyph from the existing 1.5px icon set, so the three read as
+   three separate things rather than one paragraph. The card is the system's
+   surface and divider, the same as any other notice. */
+
+.safeuse {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* the card takes the full column, not the prose measure, so it lines up with
+     the notice above it. A card is scanned, not read. */
+  max-width: var(--measure);
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.safeuse-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text);
+}
+
+.safeuse-row + .safeuse-row {
+  border-top: 1px solid var(--divider);
+}
+
+.safeuse-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.15em;
+  color: var(--muted);
+}
+
+/* the history tip is the one that stops a false sense of safety, so it is the
+   only row that takes the coral, the same colour as the exit control itself */
+.safeuse-row-critical {
+  color: var(--text);
+}
+
+.safeuse-row-critical .safeuse-icon {
+  color: var(--coral);
+}
+
+.safeuse-text {
+  min-width: 0;
+}
+
+.footer-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3xs) var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-wordmark {
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.footer-tagline {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  min-width: 0;
+}
+
+.footer-note {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  max-width: 46em;
+}
+
+/* ---------- long document, native disclosure ---------- */
+/* evidence.html collapses each part behind a details element. The summary keeps
+   the platform's own marker, so no icon is drawn and no script runs. */
+
+.guide-sec {
+  margin-block: var(--space-sm);
+  border-bottom: 1px solid var(--divider);
+}
+
+.guide-sec-loose {
+  margin-block: var(--space-lg) var(--space-sm);
+}
+
+/* no display:flex or grid here, both kill the marker in Chromium */
+.guide-sec-h {
+  padding-block: var(--space-sm);
+  min-height: 44px;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+  cursor: pointer;
+}
+
+/* the marker takes the action colour, so the row reads as a control rather than
+   as another heading, and the platform still rotates it when the section opens */
+.guide-sec-h::marker {
+  color: var(--teal);
+}
+
+.guide-sec > *:not(summary) {
+  padding-bottom: var(--space-sm);
+}
+
+/* ---------- guide lists, one system, two shapes ---------- */
+/* Both lists are ruled rows on the full measure, so they read as one system and
+   are scannable rather than a wall of prose.
+
+   The save list leads with a term. The Bangla and English strings are single
+   runs of text, so the term cannot be pulled into its own column without
+   splitting copy in two languages a native speaker has not reviewed. Instead
+   the term sits on its own line in the teal the spec rows already use, and the
+   explanation follows beneath it.
+
+   The don't list has no term in the source at all, so it takes a hanging marker
+   and the explanation runs inline beside it, which is the shape its copy
+   actually has. */
+
+.guide-terms,
+.guide-donts {
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure);
+  list-style: none;
+}
+
+.guide-terms > li,
+.guide-donts > li {
+  padding-block: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}
+
+.guide-terms > li:last-child,
+.guide-donts > li:last-child {
+  border-bottom: 1px solid var(--divider);
+}
+
+/* The term is marked with a teal rule in the margin, not by colouring the
+   <strong>. The Bangla and English strings are single runs, so in one language
+   the strong holds only the lead in term and in the other it holds the whole
+   sentence. A rule on the row reads the same either way; colouring the strong
+   would turn an entire English row teal. */
+.guide-terms > li {
+  position: relative;
+  padding-inline-start: var(--space-md);
+}
+
+.guide-terms > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--space-sm);
+  bottom: var(--space-sm);
+  width: 2px;
+  background: var(--teal);
+  border-radius: 1px;
+}
+
+.guide-terms strong {
+  font-weight: 600;
+}
+
+.guide-donts > li {
+  position: relative;
+  padding-inline-start: var(--space-md);
+}
+
+/* a short dash, not a bullet, so the don't list does not read as a set of
+   equal items the way the save list does */
+.guide-donts > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 1.15em;
+  width: 8px;
+  height: 1px;
+  background: var(--muted);
+}
+
+/* A link inside a sentence cannot be 44px tall without breaking the line, so
+   the tap area is grown with padding and a negative margin instead. The text
+   sits exactly where it did; the hit box reaches 44px in both directions. */
+.steps a {
+  display: inline-block;
+  padding-block: var(--space-2xs);
+  margin-block: calc(var(--space-2xs) * -1);
+}
+
+/* ---------- what you can choose, report.html ---------- */
+/* Three sentences about anonymity read as one grey block. Each is a separate
+   thing the reader can do or not do, so each gets a row and a mark. Two of the
+   three are openings, so they take the teal the action colour already uses; the
+   middle one is the cost, and it stays muted. */
+
+.choice-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: var(--measure);
+}
+
+.choice-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}
+
+.choice-row:last-child {
+  border-bottom: 1px solid var(--divider);
+}
+
+.choice-mark {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.55em;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.choice-row-yes .choice-mark {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgb(111 199 184 / 0.14);
+}
+
+.choice-text {
+  min-width: 0;
+}
+
+/* The last row on the home page is the one that limits what the site promises,
+   so it takes the coral the exit and danger notices already use. */
+.choice-row-critical .choice-mark {
+  background: var(--coral);
+  box-shadow: 0 0 0 3px rgb(240 142 134 / 0.14);
+}
+
+/* The form is the thing the page is for, so it gets a surface to sit on rather
+   than running on as a continuation of the explanatory text above it. Same
+   surface, border and radius as every other card on the site. */
+.form-section {
+  padding: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-card);
+  margin-block: var(--space-lg);
+}
+
+.form-section > h2 {
+  margin-bottom: var(--space-sm);
+}
+
+/* ---------- 404 ---------- */
+/* A mistyped link must not strand someone on this site, so the page offers the
+   four real pages and keeps the Quick Exit control. The 404 is set as a quiet
+   number rather than a display headline, so the way out is the obvious thing
+   on the page. */
+
+.notfound-main {
+  min-height: 70vh;
+}
+
+.error-code {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0 0 var(--space-2xs);
+}
+
+.notfound-main .lede {
+  max-width: var(--measure-prose);
+}
+
+/* a spec row that is also a link, so the whole row is the target */
+.spec-row-link {
+  text-decoration: none;
+  color: inherit;
+  min-height: 44px;
+}
+
+.spec-row-link .spec-name {
+  color: var(--teal);
+}
+
+.spec-row-link:hover .spec-name {
+  color: var(--text);
+}
+
+.spec-row-link:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.spec-row-link:hover,
+.spec-row-link:focus-visible {
+  background: var(--raised);
+}
+
+/* ---------- situation blocks, hairline cells, not cards ---------- */
+
+.situations {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--divider);
+}
+
+@media (min-width: 44rem) {
+  .situations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-lg);
+  }
+}
+
+.situation {
+  padding-block: var(--space-md);
+  border-bottom: 1px solid var(--divider);
+}
+
+.situation h3 {
+  margin-bottom: var(--space-2xs);
+}
+
+.situation p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+/* ---------- motion, opacity and transform only ---------- */
+/* docs/design.md section 6 permits subtle fades only, so opacity is the whole
+   vocabulary. No slide, no scale, no spring, nothing that moves a box.
+     focal     the lit window coming on once, after the page has settled
+     feedback  a newly added timeline row fading in, so cause and result read
+     state     colour and ring changes on every control, all under 160ms */
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn,
+  .quick-exit,
+  input,
+  textarea,
+  .brand,
+  .checkbox,
+  .guide-sec-h,
+  .lang-toggle button,
+  .theme-opts label,
+  .nav-list a {
+    transition: background-color var(--dur-short) var(--ease-out),
+      border-color var(--dur-short) var(--ease-out),
+      color var(--dur-short) var(--ease-out),
+      box-shadow var(--dur-short) var(--ease-out),
+      opacity var(--dur-short) var(--ease-out),
+      transform var(--dur-short) var(--ease-out);
+  }
+
+  /* There is no page load fade on main. Content at opacity 0 is not painted,
+     so the browser cannot report it as the largest element until the animation
+     ends. Measured on a throttled connection it held LCP back by 376ms to
+     1308ms, on the page whose whole job is to be read by someone who is
+     frightened and in a hurry. The text is simply there when the page is. The
+     one authored moment below replaces it, and it is on decoration rather than
+     on the copy. */
+
+  /* The one authored moment. The facade is already drawn when the page arrives,
+     so the window does not appear out of nothing, it lights up inside a
+     building that is already there. It runs once, never loops, and its end
+     state is fully opaque, so nothing depends on the animation completing. */
+  .lit-halo {
+    animation: window-ignite 900ms var(--ease-out) 260ms both;
+  }
+
+  .lit-halo-near {
+    animation: window-ignite 900ms var(--ease-out) 320ms both;
+  }
+
+  .entry-new {
+    animation: fade-in var(--dur-base) var(--ease-out) both;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* the halo and the pane warm up together rather than the halo blooming first,
+   which is what a real lamp does */
+@keyframes window-ignite {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.08;
+  }
+}
+
+:root[data-theme="light"] .lit-halo {
+  animation-name: window-ignite-light;
+}
+
+:root[data-theme="light"] .lit-halo-near {
+  animation-name: window-ignite-light;
+}
+
+@keyframes window-ignite-light {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.05;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- print ---------- */
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  .no-print,
+  .quick-exit,
+  .skip-link,
+  .head-bar,
+  .site-nav,
+  .site-footer,
+  .page-head,
+  #entry-form,
+  #print-trigger,
+  #privacy-line,
+  .notice,
+  #print-sheet,
+  .empty-state,
+  .record-head,
+  #report-form .btn,
+  #report-form .hint,
+  #report-form .checkbox,
+  #endpoint-chip,
+  #endpoint-note,
+  #form-status {
+    display: none !important;
+  }
+
+  /* report.html prints what has been typed, so a student can keep a paper copy
+     before they send it. The form surface, the button, the helper text and the
+     privacy checkbox all come off the page; the words stay, on white, with a
+     rule under each filled field so a blank field is obvious on paper. */
+  .form-section {
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #report-form {
+    display: block !important;
+  }
+
+  #report-form fieldset.group {
+    border: 0;
+    margin-bottom: 10pt;
+  }
+
+  #report-form legend {
+    font-weight: 700;
+    font-size: 12pt;
+    padding: 0;
+    margin-bottom: 4pt;
+  }
+
+  #report-form .field {
+    margin-bottom: 10pt;
+    break-inside: avoid;
+  }
+
+  #report-form .label {
+    display: block !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    margin-bottom: 2pt;
+  }
+
+  #report-form input,
+  #report-form textarea {
+    display: block !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #000 !important;
+    border-radius: 0 !important;
+    padding: 2pt 0 !important;
+    font-size: 11pt !important;
+  }
+
+  #report-form textarea {
+    min-height: 60pt !important;
+  }
+
+  /* an empty field prints nothing at all, so a rule alone is the only cue that
+     something was meant to go here */
+  #report-form input:placeholder-shown,
+  #report-form textarea:placeholder-shown {
+    color: transparent !important;
+  }
+
+  .notice,
+  .entry {
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    break-inside: avoid;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  #print-sheet {
+    display: block !important;
+    page-break-inside: avoid;
+  }
+
+  #print-sheet .print-title {
+    font-size: 16pt;
+    font-weight: 600;
+    margin-bottom: var(--space-3xs);
+  }
+
+  #print-generated {
+    font-size: 10pt;
+    margin-bottom: var(--space-2xs);
+  }
+
+  #print-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 10pt;
+  }
+
+  #print-table th,
+  #print-table td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  /* the browser default for th is 700 and no 700 face is loaded, so the
+     header row was rendering in a synthesised bold. 600 is a real weight. */
+  #print-table th {
+    font-weight: 600;
+  }
+
+  #print-table th:nth-child(1),
+  #print-table td:nth-child(1) {
+    width: 15%;
+  }
+
+  #print-table th:nth-child(2),
+  #print-table td:nth-child(2) {
+    width: 9%;
+  }
+
+  #print-table th:nth-child(3),
+  #print-table td:nth-child(3) {
+    width: 16%;
+  }
+
+  #print-table th:nth-child(4),
+  #print-table td:nth-child(4) {
+    width: 41%;
+  }
+
+  #print-table th:nth-child(5),
+  #print-table td:nth-child(5) {
+    width: 19%;
+  }
+
+  #print-table th {
+    background: #fff !important;
+  }
+
+  .print-note {
+    margin-top: var(--space-2xs);
+    font-size: 9pt;
+  }
+
+  @page {
+    margin: 15mm;
+  }
+}
+
+/* ---------- Windows high contrast, forced colors ---------- */
+/* Forced colors replaces the palette, which strips the colour that carried the
+   meaning here: coral said Quick Exit, amber said the DDSR, teal said action.
+   Each of those roles gets a non colour cue so it survives, and the boxes that
+   used to rely on a fill get a border, because a fill is what the OS discards. */
+
+@media (forced-colors: active) {
+  .quick-exit {
+    border: 3px solid ButtonText;
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .btn-primary {
+    border: 2px solid ButtonText;
+  }
+
+  .ddsr-node {
+    border: 2px dashed CanvasText;
+  }
+
+  .notice-coral,
+  .notice-amber {
+    border: 2px solid CanvasText;
+  }
+
+  .chip {
+    border: 2px dashed CanvasText;
+  }
+
+  /* the selected theme radio and the selected language button are marked with
+     an inset ring, which forced colors keeps, but the check itself does not
+     read, so the ring is thickened */
+  .theme-opts label:has(input:checked),
+  .lang-toggle button[aria-pressed="true"] {
+    outline: 2px solid CanvasText;
+    outline-offset: 1px;
+  }
+
+  .nav-list a[aria-current="page"] {
+    text-decoration: underline;
+  }
+
+  .ddsr-dot {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}
