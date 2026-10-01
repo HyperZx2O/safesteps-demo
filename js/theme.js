@@ -40,7 +40,7 @@
     });
   }
 
-  apply(read() || "system");
+  apply(read() || "light");
 
   Array.prototype.forEach.call(radios, function (radio) {
     radio.addEventListener("change", function () {
@@ -51,6 +51,6 @@
   });
 
   media.addEventListener("change", function () {
-    if ((read() || "system") === "system") apply("system");
+    if ((read() || "light") === "system") apply("system");
   });
 })();

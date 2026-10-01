@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn" data-theme="dark">
+<html lang="bn" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,17 +14,18 @@
     try {
       var c = window.localStorage.getItem("safesteps.theme");
       var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : (c === "system" ? m : "light"));
     } catch (e) {
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.setAttribute("data-theme", "light");
     }
   })();
 </script>
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/refinement.css?v=phone3">
 </head>
-<body>
+<body class="page-evidence">
 
 <a class="skip-link no-print" href="#main" data-i18n="skip_link">মূল কনটেন্টে যান</a>
 
@@ -54,6 +55,7 @@
             <span>English</span>
           </button>
         </div>
+
 
         <fieldset class="theme-switch">
           <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>
@@ -91,10 +93,10 @@
     <div class="nav">
       <ul class="nav-list" role="list">
         <li><a href="index.html" data-i18n="nav_home">হোম</a></li>
-        <li><a href="evidence.html" aria-current="page" data-i18n="nav_evidence">প্রমাণ সংরক্ষণ</a></li>
+        <li><a href="evidence.html" aria-current="page" data-i18n="nav_evidence">প্রমাণ</a></li>
         <li><a href="timeline.html" data-i18n="nav_timeline">টাইমলাইন</a></li>
       </ul>
-      <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">গোপনে জানান</a>
+      <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">জানান</a>
     </div>
   </div>
 </nav>
@@ -206,6 +208,6 @@
 
 <script src="js/theme.js" defer></script>
 <script src="js/quickexit.js" defer></script>
-<script src="js/i18n.js" defer></script>
+<script src="js/i18n.js?v=phone2" defer></script>
 </body>
 </html>

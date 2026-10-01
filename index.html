@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn" data-theme="dark">
+<html lang="bn" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,20 +14,21 @@
     try {
       var c = window.localStorage.getItem("safesteps.theme");
       var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : (c === "system" ? m : "light"));
     } catch (e) {
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.setAttribute("data-theme", "light");
     }
   })();
 </script>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/refinement.css?v=phone3">
 <script src="js/theme.js" defer></script>
-<script src="js/i18n.js" defer></script>
+<script src="js/i18n.js?v=phone2" defer></script>
 <script src="js/quickexit.js" defer></script>
 </head>
-<body>
+<body class="page-index">
 
 <a class="skip-link no-print" href="#main" data-i18n="skip_link">মূল কনটেন্টে যান</a>
 
@@ -57,6 +58,7 @@
             <span>English</span>
           </button>
         </div>
+
 
         <fieldset class="theme-switch">
           <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>
@@ -95,10 +97,10 @@
     <div class="nav">
   <ul class="nav-list" role="list">
   <li><a href="index.html" aria-current="page" data-i18n="nav_home">হোম</a></li>
-  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ সংরক্ষণ</a></li>
+  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ</a></li>
   <li><a href="timeline.html" data-i18n="nav_timeline">টাইমলাইন</a></li>
   </ul>
-  <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">গোপনে জানান</a>
+  <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">জানান</a>
     </div>
   </div>
 </nav>
@@ -106,7 +108,7 @@
 <main id="main" tabindex="-1">
   <div class="wrap">
 
-    <section class="page-head">
+    <div class="home-intro"><section class="page-head">
       <h1 data-i18n="home_h1">আপনার কলেজেই একজন বিশ্বস্ত মানুষ</h1>
       <p class="lede" data-i18n="home_pitch">SafeSteps আপনার কলেজের ভেতরে একজন প্রশিক্ষিত, বিশ্বস্ত মানুষকে রাখে। হেল্পলাইন নয়, অ্যাপ নয়, পুলিশ নয়, যিনি আপনাকে আগে থেকেই চেনেন।</p>
       <p class="covers-line" data-i18n="home_covers">এই পাতায় যা আছে: কীভাবে নিরাপদ থাকবেন, প্রমাণ কীভাবে সংরক্ষণ করবেন, এবং কীভাবে গোপনে জানাবেন।</p>
@@ -135,13 +137,14 @@
       <figcaption data-i18n="motif_caption">একটি জ্বল জানালা: আপনার কলেজের নির্ধারিত ডিজিটাল নিরাপত্তা প্রতিনিধি, DDSR।</figcaption>
     </figure>
 
+    </div>
     <section class="section" aria-labelledby="home_choose_h">
       <h2 id="home_choose_h" data-i18n="home_choose_h">কোনটা দরকার এখন</h2>
       <div class="spec">
         <div class="spec-row spec-row-primary">
           <span class="spec-name" data-i18n="tile_report_h">গোপনে জানান</span>
-          <span class="spec-desc" data-i18n="tile_report_p">আপনার কলেজের DDSR-এর কাছে পাঠান। বে-নামে জানানোর সুবিধাও আছে।</span>
-          <a class="btn btn-secondary btn-sm spec-action" href="report.html" data-i18n="tile_report_a">ফর্ম পূরণ করুন</a>
+          <span class="spec-desc" data-i18n="tile_report_p">গোপনে জানানোর ফর্মটি দেখুন। এই ডেমো থেকে তথ্য পাঠানো যায় না।</span>
+          <a class="btn btn-secondary btn-sm spec-action" href="report.html" data-i18n="tile_report_a">ডেমো ফর্ম দেখুন</a>
         </div>
         <div class="spec-row">
           <span class="spec-name" data-i18n="tile_evidence_h">প্রমাণ সংরক্ষণের নির্দেশিকা</span>

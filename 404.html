@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn" data-theme="dark">
+<html lang="bn" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,18 +14,19 @@
     try {
       var c = window.localStorage.getItem("safesteps.theme");
       var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : (c === "system" ? m : "light"));
     } catch (e) {
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.setAttribute("data-theme", "light");
     }
   })();
 </script>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/refinement.css?v=phone3">
 <script src="js/theme.js" defer></script>
 <script src="js/quickexit.js" defer></script>
-<script src="js/i18n.js" defer></script>
+<script src="js/i18n.js?v=phone2" defer></script>
 </head>
 <body class="notfound-page">
 
@@ -57,6 +58,7 @@
             <span>English</span>
           </button>
         </div>
+
 
         <fieldset class="theme-switch">
           <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>

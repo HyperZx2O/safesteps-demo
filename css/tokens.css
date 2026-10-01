@@ -1,40 +1,37 @@
-/* SafeSteps color tokens. Values copied verbatim from docs/design.md section 4.
-   The block below is the locked design system. Do not edit these values.
-   Hallmark note: the locked palette is specified in hex by docs/design.md section 4.
-   Token discipline is kept (every colour is referenced by name, never inlined);
-   only the notation differs from the Hallmark default. */
+/* SafeSteps: warm paper, ink navy, blue actions, red safety controls.
+   Legacy --teal names are retained for the existing components; their hue is blue. */
 
 :root {
   color-scheme: dark;
 
-  --bg: #14171C;
-  --surface: #1D2128;
-  --raised: #262B34;
-  --divider: #2E3540;      /* decorative only */
-  --border: #5B6573;       /* inputs, must stay 3:1 */
-  --text: #E6E8EB;
-  --muted: #A8AFBA;
-  --teal: #6FC7B8;         /* actions, links, tools */
-  --on-teal: #0E1A19;
-  --amber: #E9B872;        /* the DDSR, the human */
-  --coral: #F08E86;        /* Quick Exit, alerts */
-  --on-coral: #1A0F0E;
+  --bg: #101C30;
+  --surface: #192840;
+  --raised: #223650;
+  --divider: #34455E;      /* decorative only */
+  --border: #8291A8;       /* inputs, must stay 3:1 */
+  --text: #F4F5F7;
+  --muted: #B5C2D3;
+  --teal: #9CBFFF;         /* actions, links, tools */
+  --on-teal: #10213B;
+  --amber: #E8C181;        /* the DDSR, the human */
+  --coral: #FFB0A8;        /* Quick Exit, alerts */
+  --on-coral: #42120E;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --bg: #F6F4EF;
+  --bg: #F7F6F2;
   --surface: #FFFFFF;
   --raised: #FFFFFF;
-  --divider: #D9D5CC;
-  --border: #6B7480;
-  --text: #1B2027;
-  --muted: #4A5360;
-  --teal: #0B6B62;
+  --divider: #DADDDC;
+  --border: #78828D;
+  --text: #18273B;
+  --muted: #526071;
+  --teal: #254F93;
   --on-teal: #FFFFFF;
-  --amber: #8A5300;
-  --coral: #B3261E;
+  --amber: #79501D;
+  --coral: #AE3029;
   --on-coral: #FFFFFF;
 }
 
@@ -83,8 +80,8 @@
 
   /* radius, docs/design.md section 6 fixes cards at 16px */
   --radius-chip: 8px;
-  --radius-btn: 10px;
-  --radius-card: 16px;
+  --radius-btn: 5px;
+  --radius-card: 6px;
   --radius-pill: 999px;
 
   /* motion, docs/design.md section 6 permits subtle fades only */
@@ -100,3 +97,9 @@
   --z-exit: 40;
   --z-top: 50;
 }
+
+:root { --font-display: Georgia, "Times New Roman", serif; --shell: #14263F; --shell-text: #F7F6F2; --shell-muted: #BECBDD; --shell-action: #FFD9D4; --shell-exit: #AE3029; --paper-rule: #DADDDC; }
+
+:root { --motif-surface: #243851; --motif-divider: #617086; --motif-light: #E8C181; }
+
+:root { --shell-border: #687994; --shell-hover: #223650; --shell-selected: #34455E; }

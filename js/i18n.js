@@ -19,14 +19,15 @@
 */
 
 var STRINGS_EN = {
+  demo_notice: "Demonstration only. This form does not send information.",
   /* shared shell */
   skip_link: "Skip to main content",
   quick_exit: "Quick Exit",
   nav_label: "Main menu",
   nav_home: "Home",
-  nav_evidence: "Evidence guide",
+  nav_evidence: "Evidence",
   nav_timeline: "Timeline",
-  nav_report: "Report privately",
+  nav_report: "Report",
   lang_group_label: "Choose a language",
   theme_label: "Theme",
   theme_system: "System",
@@ -52,8 +53,8 @@ var STRINGS_EN = {
     "Write down what happened, in order, on your own device. Nothing is saved anywhere.",
   tile_timeline_a: "Build the timeline",
   tile_report_h: "Report privately",
-  tile_report_p: "Send it to your college's DDSR. There is an anonymous option.",
-  tile_report_a: "Fill in the form",
+  tile_report_p: "Explore the private reporting form. Sending is disabled in this demo.",
+  tile_report_a: "View demo form",
   home_how_h: "How it works",
   home_step_1: "You find the courage to fill in the form. You can send it without your name.",
   home_step_2: "The form goes to the DDSR of your own college.",
@@ -218,7 +219,7 @@ var STRINGS_EN = {
   tl_what_ph: "Briefly write what happened",
   tl_note_label: "Link or screenshot name (optional)",
   tl_note_ph: "For example: screenshot-1, img_20260314.png",
-  tl_add: "Add it",
+  tl_add: "Add event",
   tl_cancel_edit: "Cancel editing",
   tl_list_h: "Your events",
   tl_sort_oldest: "Oldest first",

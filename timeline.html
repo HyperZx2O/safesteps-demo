@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn" data-theme="dark">
+<html lang="bn" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,21 +14,22 @@
     try {
       var c = window.localStorage.getItem("safesteps.theme");
       var m = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : m);
+      document.documentElement.setAttribute("data-theme", (c === "dark" || c === "light") ? c : (c === "system" ? m : "light"));
     } catch (e) {
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.setAttribute("data-theme", "light");
     }
   })();
 </script>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/refinement.css?v=phone3">
 <script src="js/theme.js" defer></script>
-<script src="js/i18n.js" defer></script>
+<script src="js/i18n.js?v=phone2" defer></script>
 <script src="js/quickexit.js" defer></script>
 <script src="js/timeline.js" defer></script>
 </head>
-<body>
+<body class="page-timeline">
 
 <a class="skip-link no-print" href="#main" data-i18n="skip_link">মূল কনটেন্টে যান</a>
 
@@ -58,6 +59,7 @@
             <span>English</span>
           </button>
         </div>
+
 
         <fieldset class="theme-switch">
           <legend class="visually-hidden" data-i18n="theme_label">থিম</legend>
@@ -96,10 +98,10 @@
     <div class="nav">
   <ul class="nav-list" role="list">
   <li><a href="index.html" data-i18n="nav_home">হোম</a></li>
-  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ সংরক্ষণ</a></li>
+  <li><a href="evidence.html" data-i18n="nav_evidence">প্রমাণ</a></li>
   <li><a href="timeline.html" aria-current="page" data-i18n="nav_timeline">টাইমলাইন</a></li>
   </ul>
-  <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">গোপনে জানান</a>
+  <a class="btn btn-primary nav-cta" href="report.html" data-i18n="nav_report">জানান</a>
     </div>
   </div>
 </nav>
@@ -117,7 +119,7 @@
       <span data-i18n="tl_privacy_body">আপনি যা লিখবেন, তা আপনার ডিভাইস থেকে বাইরে যায় না এবং কোথাও সেভ হয় না। পেজটি বন্ধ করলে সব মুছে যাবে। ছাপলে বা সংরক্ষণ করলে সেই কপি আপনার হাতে।</span>
     </section>
 
-    <section class="section no-print" aria-labelledby="tl_add_h">
+    <div class="timeline-workspace"><section class="section no-print timeline-editor" aria-labelledby="tl_add_h">
       <h2 id="tl_add_h" data-i18n="tl_add_h">নতুন ঘটনা যোগ করুন</h2>
       <form id="entry-form" novalidate>
         <label class="field" for="t-date">
@@ -155,7 +157,7 @@
       </form>
     </section>
 
-    <section class="section no-print" aria-labelledby="tl_list_h">
+    <section class="section no-print timeline-record" aria-labelledby="tl_list_h">
       <h2 id="tl_list_h" data-i18n="tl_list_h">আপনার ঘটনাগুলো</h2>
 
       <p class="section-tight no-print">
@@ -194,6 +196,8 @@
         <button class="btn btn-primary" type="button" id="print-btn" data-i18n="tl_print">প্রিন্টযোগ্য রেকর্ড তৈরি করুন</button>
       </p>
     </section>
+
+    </div>
 
     <section id="print-sheet" aria-label="প্রিন্টযোগ্য রেকর্ড">
       <p class="print-title" data-i18n="tl_print_title">SafeSteps: ইভিডেন্স টাইমলাইন</p>
