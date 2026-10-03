@@ -217,6 +217,19 @@ python -m http.server 8912 --bind 127.0.0.1
 node tools/browser-gates.js     # 60 responsive and accessibility combinations
 ```
 
+### Cache busting
+
+Every local stylesheet and script is referenced with `?v=1`. There is no build
+step, so nothing rewrites those URLs, and a browser is free to serve a stale
+copy of an edited file. This is not hypothetical: an edit to `site.css` sat
+undelivered for two rounds while an edit to the versioned `refinement.css`
+showed up immediately, which made one change look broken and the other look
+correct.
+
+**Bump `?v=1` to `?v=2` in all five HTML files whenever you edit any file in
+`css/` or `js/`.** All references share one token on purpose, so a single find
+and replace moves them together and they can never disagree.
+
 ---
 
 ## Honest limits
