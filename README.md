@@ -124,7 +124,7 @@ dependency of the shipped site.
   timeline.html         timeline builder, printable record
   report.html           private form, limits first
   404.html              stranded visitor
-  favicon.svg           the lit window, 2 KB
+  favicon.svg           the lit doorway, the wordmark arch, 2.4 KB
   css/
     tokens.css          both themes, spacing, type scale
     fonts.css           @font-face, self-hosted

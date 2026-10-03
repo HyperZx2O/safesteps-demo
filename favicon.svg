@@ -1,38 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SafeSteps">
   <!--
-    The favicon is the lit window at its smallest honest size.
+    The favicon is the doorway from the wordmark, lit.
 
-    A favicon has to survive 16 by 16 pixels, so the home page's five by three
-    facade is reduced to three by three. Nine panes still read as a building,
-    and one lit pane is still the whole idea. Every other candidate was worse at
-    that size: a single window has no idea in it, and a real five by three grid
-    collapses into noise.
+    The header mark in css/refinement.css is not artwork, it is a CSS box: an 18
+    by 24 arch with a 2px stroke and a vertical split knocked out of the fill
+    with an inset shadow. None of that survives the trip to a favicon. Box
+    shadows and currentColor do not exist here, and a 2px stroke on an 18px box
+    is 11% of its width, so redrawing the same outline at this size leaves a
+    shape with no interior. The arch is solid geometry instead, and the amber
+    that used to be a hairline edge becomes the whole mark.
 
-    Colour is two locked tokens and nothing else. docs/design.md section 4 calls
-    amber the human, and the human is the entire product, so the lit pane is the
-    DDSR. The unlit panes are the surface token with a faint amber stroke, which
-    is what makes the grid read as windows in a dark building rather than as a
-    pattern.
+    Filling the arch is the point. The wordmark is grey, which reads as a closed
+    door, and a closed door is not what this site is. docs/design.md section 4
+    makes amber the human, and the human is the entire product, so the doorway
+    in the tab bar is lit for the same reason the window in the home page motif
+    is lit. The mark and the motif now say one thing instead of two.
 
-    The tab bar can be light or dark and the site cannot know which, so the
-    building is a dark rounded square with a faint amber edge. On a light tab it
-    is a dark object; on a dark tab the edge keeps its shape. Either way the
-    amber pane is the thing the eye lands on, and amber is the only mark that
-    survives both.
+    The facade this file used to hold is not lost. It is still on the home page
+    at 320 by 164, where there is room for fifteen panes and one lit, and it is
+    the larger of the two ideas. A favicon gets sixteen pixels, so it takes the
+    smaller one. The previous comment argued that a five by three facade
+    collapses into noise at that size and cut it to three by three. An arch
+    with a stroke and a split collapses harder, which is why this one is a
+    silhouette.
+
+    Colour is two locked tokens, the same two as before. Amber on the dark
+    square is 9.89 to 1, which clears the bar the rest of the site holds itself
+    to even though a favicon is exempt from it.
+
+    The dark rounded square and the faint amber edge are untouched. The tab bar
+    can be light or dark and the site cannot know which, so the mark sits on a
+    dark object with an edge that keeps its shape either way.
   -->
   <rect width="32" height="32" rx="7" fill="#14171C"/>
   <rect x=".75" y=".75" width="30.5" height="30.5" rx="6.5" fill="none" stroke="#E9B872" stroke-opacity=".5" stroke-width="1.75"/>
 
-  <g fill="#1D2128" stroke="#E9B872" stroke-opacity=".4" stroke-width="1">
-    <rect x="5" y="5" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="13.16" y="5" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="21.32" y="5" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="5" y="13.16" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="5" y="21.32" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="13.16" y="21.32" width="5.67" height="5.67" rx="1.2"/>
-    <rect x="21.32" y="21.32" width="5.67" height="5.67" rx="1.2"/>
-  </g>
+  <!-- the arch, filled, so there is an interior left at 16 pixels -->
+  <path d="M9 25V14a7 7 0 0 1 14 0v11z" fill="#E9B872"/>
 
-  <!-- the lit window, off centre on purpose, echoing the home page motif -->
-  <rect x="21.32" y="13.16" width="5.67" height="5.67" rx="1.2" fill="#E9B872"/>
+  <!-- the split. two units so it still renders at 16, and it stops below the
+       shoulder so it never cuts the curve -->
+  <path d="M13 15h2v10h-2z" fill="#14171C"/>
 </svg>

@@ -522,6 +522,24 @@ main:focus-visible {
   stroke-linejoin: round;
 }
 
+/* The mark on an action that leaves the page. It scales with the label rather
+   than sitting at a fixed 18px, so it stays in step with the font at every
+   breakpoint instead of drifting as the button text resizes.
+
+   The stroke is heavier than .i on purpose. A 1em box is roughly 14px, and the
+   24 unit viewBox scales down with it, so a 1.5 stroke would land under one
+   device pixel and read as a smudge. 2 puts the rendered stroke back at about
+   1.2px, which is what the 18px icons already look like.
+
+   Spacing comes from .btn's flex gap. The glyph this replaced also carried a
+   12px margin on top of that gap, so the icon is narrower than what it replaced
+   and the nav row has more room, not less. */
+.i-arrow {
+  width: 1em;
+  height: 1em;
+  stroke-width: 2;
+}
+
 .lang-toggle {
   display: flex;
   align-items: center;
@@ -666,6 +684,16 @@ main ol,
 .hint,
 .chip-note {
   max-width: var(--measure-prose);
+}
+
+/* The safe use tips are the fourth scanned-not-read row, and the first one
+   that happens to be a ul, so the blanket rule above was catching them and
+   holding the block to 528px, under half the column. They are three panels
+   side by side rather than running prose, so they take the whole column. This
+   is the cap that was actually binding: the 680px one this rule used to carry
+   itself was looser than 528px and never did anything. */
+.safeuse {
+  max-width: none;
 }
 
 /* the opening sentence of the home page, set above body size. It is the one
@@ -1320,17 +1348,53 @@ fieldset.group legend {
   display: none;
 }
 
-/* ---------- footer, quiet by default ---------- */
-/* The footer is end matter, not content. Its heading stays an h2 so the screen
-   reader outline is unchanged, but it is set at label size so it does not
-   compete with the section headings above it. The three tips are three
-   sentences, not a set of items to scan, so they run as one block with no list
-   indent and no per-item spacing. */
+/* ---------- footer, the brand's last word ---------- */
+/* End matter, not content. One sentence at display size, then a quiet metadata
+   strip. This is a statement footer on purpose.
 
+   The usual footer is a link map, and the usual advice is to fill one in. There
+   is nothing here to link to. The site has four pages and all four are already
+   in the header nav, and it has no contact details, no legal pages, no about
+   page and no social accounts. Padding the space with invented links, or worse
+   with a subscribe box on a site about being frightened and reported, would say
+   less than the space does. docs/design.md section 11 is titled Honest limits;
+   this is the same instinct applied to the footer. */
+
+/* No margin and no top padding. The footer attaches directly to whatever is
+   above it: no offset, no air, one rule. There is still bottom padding, because
+   the last line of text needs to clear the bottom of the viewport. */
 .site-footer {
-  margin-top: var(--space-xl);
-  padding-block: var(--space-lg) var(--space-md);
+  margin-top: 0;
+  padding-block: 0 var(--space-lg);
   border-top: 1px solid var(--divider);
+}
+
+/* The strip's own rule is gone too. With the footer sitting flush, a second
+   border-top one line below the footer's would read as two rules stacked on
+   each other, which is what the gap was really drawing attention to. The
+   footer's single rule does the separating; the padding below is just the text
+   keeping off that rule. */
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-lg);
+  padding-top: var(--space-md);
+}
+
+.footer-wordmark {
+  color: var(--text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.footer-note {
+  max-width: 46em;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
 }
 
 /* the four situation cells are the second level under the disclosure summary,
@@ -1348,9 +1412,13 @@ fieldset.group legend {
   margin: 0;
   padding: 0;
   list-style: none;
-  /* the card takes the full column, not the prose measure, so it lines up with
-     the notice above it. A card is scanned, not read. */
-  max-width: var(--measure);
+  /* Deliberately no max-width. This used to carry the prose measure, which is
+     680px, while the comment above it claimed the opposite. The cap survived the
+     later restyle into a three column band, so on index and timeline, whose
+     main column is 1180px, the block was styled like a full width band and
+     still stopped two hundred pixels short of one, leaving the right of the row
+     empty. Tips are scanned, not read, so they take the whole column. The
+     reading measure still applies to the prose in .lede and .spec-desc. */
   background: var(--surface);
   border: 1px solid var(--divider);
   border-radius: var(--radius-card);
@@ -1389,32 +1457,6 @@ fieldset.group legend {
 
 .safeuse-text {
   min-width: 0;
-}
-
-.footer-band {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-3xs) var(--space-sm);
-  margin-bottom: var(--space-sm);
-}
-
-.footer-wordmark {
-  font-weight: 600;
-  font-size: var(--text-base);
-}
-
-.footer-tagline {
-  color: var(--muted);
-  font-size: var(--text-sm);
-  min-width: 0;
-}
-
-.footer-note {
-  margin-top: 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-  max-width: 46em;
 }
 
 /* ---------- long document, native disclosure ---------- */
