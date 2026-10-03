@@ -93,7 +93,7 @@ var STRINGS_EN = {
   /* evidence guide */
   /* NEEDS REVIEW: ev_save_1, ev_save_2, ev_save_3, ev_save_4, ev_save_5,
      ev_not_1, ev_not_2, ev_not_3, ev_not_4, ev_how_1, ev_how_2, ev_how_3,
-     ev_how_4, ev_how_5, ev_kind_harass_p, ev_kind_black_p, ev_kind_imp_p,
+     ev_how_4, ev_how_5_a, ev_how_5_b, ev_kind_harass_p, ev_kind_black_p, ev_kind_imp_p,
      ev_kind_ai_p */
   evidence_h1: "Evidence preservation guide",
   evidence_covers:
@@ -122,8 +122,8 @@ var STRINGS_EN = {
   ev_how_3:
     "Put the date in each file name, for example: 2026-03-14-morning-message.",
   ev_how_4: "Give one copy to someone you trust: at home, or to a friend you trust.",
-  ev_how_5:
-    "Use the evidence timeline to write the events in order. It runs only on your device.",
+  ev_how_5_a: "Use the evidence timeline to write the events in order.",
+  ev_how_5_b: "It runs only on your device.",
   ev_how_5_link: "evidence timeline",
   ev_kinds_h: "When this guide applies",
   ev_kind_harass_h: "Online harassment",
